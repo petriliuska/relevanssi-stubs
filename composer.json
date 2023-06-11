@@ -1,6 +1,14 @@
 {
   "name": "petriliuska/relevanssi-stubs",
   "description": "Stubs for Relevanssi plugin",
+  "authors": [
+    {
+      "name": "Petri Liuska",
+      "email": "petriliuska@pm.me",
+      "role": "Developer"
+    }
+  ],
+  "license": "MIT",
   "type": "library",
   "require-dev": {
     "php-stubs/generator": "^0.8.3",
