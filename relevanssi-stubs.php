@@ -287,7 +287,7 @@ function relevanssi_prevent_default_request($request, $query)
  * source material. If the parameter is an array of string, each string is
  * tokenized separately and the resulting tokens are combined into one array.
  *
- * @param string|array   $string          The string, or an array of strings, to
+ * @param string|array   $str             The string, or an array of strings, to
  *                                        tokenize.
  * @param boolean|string $remove_stops    If true, stopwords are removed. If
  * 'body', also removes the body stopwords. Default true.
@@ -299,7 +299,7 @@ function relevanssi_prevent_default_request($request, $query)
  * @return int[] An array of tokens as the keys and their frequency as the
  * value.
  */
-function relevanssi_tokenize($string, $remove_stops = \true, int $min_word_length = -1, $context = 'indexing') : array
+function relevanssi_tokenize($str, $remove_stops = \true, int $min_word_length = -1, $context = 'indexing') : array
 {
 }
 /**
@@ -378,11 +378,8 @@ function relevanssi_async_update_doc_count()
  * @global object $wpdb                 The WordPress database interface.
  *
  * @author Teemu Muikku
- *
- * @param int $new_blog  The new blog ID.
- * @param int $prev_blog The old blog ID.
  */
-function relevanssi_switch_blog($new_blog, $prev_blog)
+function relevanssi_switch_blog()
 {
 }
 /**
@@ -821,12 +818,11 @@ function relevanssi_add_bricks($fields)
  *
  * @param array  $value   An array of custom field values.
  * @param string $field   The name of the custom field.
- * @param int    $post_id The post ID.
  *
  * @return array An array containing a string with all the values concatenated
  * together.
  */
-function relevanssi_bricks_values($value, $field, $post_id)
+function relevanssi_bricks_values($value, $field)
 {
 }
 /**
@@ -858,7 +854,7 @@ function relevanssi_block_elementor_library(bool $ok, \WP_Query $query) : bool
  *
  * Uses the dgwt/wcas/search_query_args filter hook to modify the search query.
  *
- * @params array $args The search arguments.
+ * @param array $args The search arguments.
  *
  * @return array
  */
@@ -1158,11 +1154,9 @@ function relevanssi_pretty_links_ok($ok, $query)
  * If this option is enabled, it will break Relevanssi search when there's a
  * match for the code.
  *
- * @param string $value Not used.
- *
  * @return string 'no'.
  */
-function relevanssi_disable_gtin_code($value)
+function relevanssi_disable_gtin_code()
 {
 }
 /**
@@ -1416,11 +1410,11 @@ function relevanssi_woocommerce_indexing_filter()
  * boost can be adjusted with the `relevanssi_sku_boost` filter hook. The
  * default is 2.
  *
- * @param object $match The match object.
+ * @param object $match_object The match object.
  *
  * @return object The match object.
  */
-function relevanssi_sku_boost($match)
+function relevanssi_sku_boost($match_object)
 {
 }
 /**
@@ -1500,12 +1494,12 @@ function relevanssi_wpmembers_compatibility(bool $post_ok, $post_id) : bool
 /**
  * Adds Relevanssi results to WP Search Suggest dropdown.
  *
- * @param array  $list  List of post titles.
+ * @param array  $title_list  List of post titles.
  * @param object $query The WP_Query object.
  *
  * @return array List of post titles.
  */
-function relevanssi_wpss_support($list, $query)
+function relevanssi_wpss_support($title_list, $query)
 {
 }
 /**
@@ -1550,6 +1544,23 @@ function relevanssi_wpml_filter($data)
  * @return string The term names as a string.
  */
 function relevanssi_wpml_term_fix(string $term_content, array $terms, string $taxonomy, int $post_id)
+{
+}
+/**
+ * Disables WPML term filtering.
+ *
+ * This function disables the WPML term filtering, so that Relevanssi can index
+ * the terms in the correct language.
+ */
+function relevanssi_disable_wpml_terms()
+{
+}
+/**
+ * Enables WPML term filtering.
+ *
+ * This function enables the WPML term filtering.
+ */
+function relevanssi_enable_wpml_terms()
 {
 }
 /**
@@ -1635,19 +1646,19 @@ function relevanssi_debug_posts($posts)
 /**
  * Prints out an array in a preformatted block.
  *
- * @param array  $array The array to print.
- * @param string $title The title for the array.
+ * @param array  $array_value The array to print.
+ * @param string $title       The title for the array.
  */
-function relevanssi_debug_array($array, $title)
+function relevanssi_debug_array($array_value, $title)
 {
 }
 /**
  * Prints out a string in a preformatted block.
  *
- * @param string $string The string to print.
- * @param string $title  The title for the string.
+ * @param string $str   The string to print.
+ * @param string $title The title for the string.
  */
-function relevanssi_debug_string($string, $title)
+function relevanssi_debug_string($str, $title)
 {
 }
 /**
@@ -1676,6 +1687,14 @@ function relevanssi_debug_search_settings()
 {
 }
 /**
+ * Returns true if RELEVANSSI_DEBUG, WP_DEBUG and WP_DEBUG_DISPLAY are true.
+ *
+ * @return bool True if debug mode is on.
+ */
+function relevanssi_log_debug() : bool
+{
+}
+/**
  * /lib/didyoumean.php
  *
  * @package Relevanssi
@@ -1690,16 +1709,16 @@ function relevanssi_debug_search_settings()
  * is available, will use relevanssi_premium_didyoumean(), otherwise the
  * relevanssi_simple_didyoumean() is used.
  *
- * @param string  $query The query.
- * @param string  $pre   Printed out before the suggestion.
- * @param string  $post  Printed out after the suggestion.
- * @param int     $n     Maximum number of search results found for the
+ * @param string  $query   The query.
+ * @param string  $pre     Printed out before the suggestion.
+ * @param string  $post    Printed out after the suggestion.
+ * @param int     $n       Maximum number of search results found for the
  * suggestions to show up. Default 5.
- * @param boolean $echo  If true, echo out. Default true.
+ * @param boolean $echoed  If true, echo out. Default true.
  *
  * @return string|null The suggestion HTML element.
  */
-function relevanssi_didyoumean($query, $pre, $post, $n = 5, $echo = \true)
+function relevanssi_didyoumean($query, $pre, $post, $n = 5, $echoed = \true)
 {
 }
 /**
@@ -1880,13 +1899,13 @@ function relevanssi_entities_inside($content, $tag)
  * If there are highlights within highlights in a string, this function will
  * clean out the nested highlights, leaving just the outmost highlight tokens.
  *
- * @param string $string The content.
+ * @param string $str    The content.
  * @param string $begin  The beginning highlight token.
  * @param string $end    The ending highlight token.
  *
  * @return string The string with nested highlights cleaned out.
  */
-function relevanssi_remove_nested_highlights($string, $begin, $end)
+function relevanssi_remove_nested_highlights($str, $begin, $end)
 {
 }
 /**
@@ -2470,13 +2489,13 @@ function relevanssi_index_excerpt(&$insert_data, $excerpt, $min_word_length, $de
  * Creates indexing queries for post title.
  *
  * @param array   $insert_data     The INSERT query data. Modified here.
- * @param object  $post            The post object.
+ * @param object  $post_object     The post object.
  * @param int     $min_word_length The minimum word length.
  * @param boolean $debug           If true, print out debug notices.
  *
  * @return int The number of tokens added to the data.
  */
-function relevanssi_index_title(&$insert_data, $post, $min_word_length, $debug)
+function relevanssi_index_title(&$insert_data, $post_object, $min_word_length, $debug)
 {
 }
 /**
@@ -3491,10 +3510,10 @@ function relevanssi_generate_term_where($term, $force_fuzzy = \false, $no_terms 
  *
  * @since 2.1.5
  *
- * @param object $match             The match object, used as a reference.
+ * @param object $match_object      The match object, used as a reference.
  * @param array  $post_type_weights The post type and taxonomy weights array.
  */
-function relevanssi_taxonomy_score(&$match, $post_type_weights)
+function relevanssi_taxonomy_score(&$match_object, $post_type_weights)
 {
 }
 /**
@@ -3559,25 +3578,25 @@ function relevanssi_control_media_queries(bool $search_ok, \WP_Query $query) : b
 /**
  * Calculates the TF value.
  *
- * @param stdClass $match             The match object.
+ * @param stdClass $match_object      The match object.
  * @param array    $post_type_weights An array of post type weights.
  *
  * @return float The TF value.
  */
-function relevanssi_calculate_tf($match, $post_type_weights)
+function relevanssi_calculate_tf($match_object, $post_type_weights)
 {
 }
 /**
  * Calculates the match weight based on TF, IDF and bonus multipliers.
  *
- * @param stdClass $match             The match object.
+ * @param stdClass $match_object      The match object.
  * @param float    $idf               The inverse document frequency.
  * @param array    $post_type_weights The post type weights.
  * @param string   $query             The search query.
  *
  * @return float The weight.
  */
-function relevanssi_calculate_weight($match, $idf, $post_type_weights, $query)
+function relevanssi_calculate_weight($match_object, $idf, $post_type_weights, $query)
 {
 }
 /**
@@ -3586,10 +3605,10 @@ function relevanssi_calculate_weight($match, $idf, $post_type_weights, $query)
  *
  * @param array    $term_hits    The term hits array (passed as reference).
  * @param array    $match_arrays The matches array (passed as reference).
- * @param stdClass $match        The match object.
+ * @param stdClass $match_object The match object.
  * @param string   $term         The search term.
  */
-function relevanssi_update_term_hits(&$term_hits, &$match_arrays, $match, $term)
+function relevanssi_update_term_hits(&$term_hits, &$match_arrays, $match_object, $term)
 {
 }
 /**
@@ -3631,11 +3650,11 @@ function relevanssi_sort_results(&$hits, $orderby, $order, $meta_query)
  * Adjusts the $match->doc ID in case of users, post type archives and
  * taxonomy terms.
  *
- * @param stdClass $match The match object.
+ * @param stdClass $match_object The match object.
  *
  * @return int|string The doc ID, modified if necessary.
  */
-function relevanssi_adjust_match_doc($match)
+function relevanssi_adjust_match_doc($match_object)
 {
 }
 /**
@@ -3671,11 +3690,11 @@ function relevanssi_compile_common_args($query)
  * even though the word appears in the post (because of throttling), the post
  * would be excluded. This functionality makes sure it is included.
  *
- * @param array $matches The found posts array.
- * @param array $include The posts to include.
- * @param array $params  Search parameters.
+ * @param array $matches        The found posts array.
+ * @param array $included_posts The posts to include.
+ * @param array $params         Search parameters.
  */
-function relevanssi_add_include_matches(array &$matches, array $include, array $params)
+function relevanssi_add_include_matches(array &$matches, array $included_posts, array $params)
 {
 }
 /**
@@ -3786,12 +3805,9 @@ function relevanssi_noindex_shortcode($atts, $content)
  *
  * During indexing, the [noindex] shortcode returns nothing.
  *
- * @param array  $atts    The shortcode attributes. Not used.
- * @param string $content The content inside the shortcode tags.
- *
  * @return string An empty string.
  */
-function relevanssi_noindex_shortcode_indexing($atts, $content)
+function relevanssi_noindex_shortcode_indexing()
 {
 }
 /**
@@ -4409,21 +4425,21 @@ function get_relevanssi_taxonomy_walker()
 /**
  * Adds apostrophes around a string.
  *
- * @param string $string The string.
+ * @param string $str The string.
  *
  * @return string The string with apostrophes around it.
  */
-function relevanssi_add_apostrophes($string)
+function relevanssi_add_apostrophes($str)
 {
 }
 /**
  * Adds quotes around a string.
  *
- * @param string $string The string.
+ * @param string $str The string.
  *
  * @return string The string with quotes around it.
  */
-function relevanssi_add_quotes($string)
+function relevanssi_add_quotes($str)
 {
 }
 /**
@@ -4434,22 +4450,22 @@ function relevanssi_add_quotes($string)
  *
  * @see relevanssi_mb_trim.
  *
- * @param string $string String to trim.
+ * @param string $str String to trim.
  */
-function relevanssi_array_walk_trim(string &$string)
+function relevanssi_array_walk_trim(string &$str)
 {
 }
 /**
  * Converts sums in an array to averages, based on an array containing counts.
  *
  * Both arrays need to have (key, value) pairs with the same keys. The values
- * in $array are then divided by the matching values in $counts, so when we have
- * sums in $array and counts in $counts, we end up with averages.
+ * in $arr are then divided by the matching values in $counts, so when we have
+ * sums in $arr and counts in $counts, we end up with averages.
  *
- * @param array $array  The array with sums, passed as reference.
+ * @param array $arr    The array with sums, passed as reference.
  * @param array $counts The array with counts.
  */
-function relevanssi_average_array(array &$array, array $counts)
+function relevanssi_average_array(array &$arr, array $counts)
 {
 }
 /**
@@ -4493,7 +4509,7 @@ function relevanssi_count_term_occurrances(string $query, string $mode = 'array'
  * Prints out debugging notices.
  *
  * If WP_CLI is available, prints out the debug notice as a WP_CLI::log(),
- * otherwise just echo.
+ * otherwise if debug mode is on, uses error_log(), otherwise just echo.
  *
  * @param string $notice The notice to print out.
  */
@@ -4519,11 +4535,11 @@ function relevanssi_do_shortcode(string $content) : string
 /**
  * Recursively flattens a multidimensional array to produce a string.
  *
- * @param array $array The source array.
+ * @param array $arr The source array.
  *
  * @return string The array contents as a string.
  */
-function relevanssi_flatten_array(array $array)
+function relevanssi_flatten_array(array $arr)
 {
 }
 /**
@@ -4732,11 +4748,11 @@ function relevanssi_get_the_title($post)
 /**
  * Adds a soft hyphen to a string at every five characters.
  *
- * @param string $string The string to hyphenate.
+ * @param string $str The string to hyphenate.
  *
  * @return string The hyphenated string.
  */
-function relevanssi_hyphenate($string)
+function relevanssi_hyphenate($str)
 {
 }
 /**
@@ -4757,11 +4773,11 @@ function relevanssi_implode(array $request, string $option, string $glue = ',')
 /**
  * Increases a value. If it's not set, sets it first to the default value.
  *
- * @param int $value    The value to increase (passed by reference).
- * @param int $increase The amount to increase the value, default 1.
- * @param int $default  The default value, default 0.
+ * @param int $value     The value to increase (passed by reference).
+ * @param int $increase  The amount to increase the value, default 1.
+ * @param int $def_value The default value, default 0.
  */
-function relevanssi_increase_value(&$value, $increase = 1, $default = 0)
+function relevanssi_increase_value(&$value, $increase = 1, $def_value = 0)
 {
 }
 /**
@@ -4794,11 +4810,11 @@ function relevanssi_is_live_search()
  * Replaces hyphens, quotes and ampersands with spaces if necessary based on
  * the Relevanssi advanced indexing settings.
  *
- * @param string $string The string to check.
+ * @param string $str The string to check.
  *
  * @return boolean True if the string is a multiple-word phrase, false otherwise.
  */
-function relevanssi_is_multiple_words(string $string) : bool
+function relevanssi_is_multiple_words(string $str) : bool
 {
 }
 /**
@@ -4826,12 +4842,12 @@ function relevanssi_launch_ajax_action(string $action, array $payload_args = arr
  * @param array  $request An array of option values.
  * @param string $option  The key to check.
  * @param array  $values  The legal values.
- * @param string $default The default value.
+ * @param string $def_val The default value.
  *
  * @return string|null A legal value or the default value, null if the option
  * isn't set.
  */
-function relevanssi_legal_value(array $request, string $option, array $values, string $default)
+function relevanssi_legal_value(array $request, string $option, array $values, string $def_val)
 {
 }
 /**
@@ -4856,16 +4872,34 @@ function relevanssi_mb_strcasecmp($str1, $str2, $encoding = '') : int
 {
 }
 /**
+ * Multibyte friendly case-insensitive string search.
+ *
+ * If multibyte string functions are available, do mb_stristr(). Otherwise,
+ * do stristr().
+ *
+ * @see stristr()     Falls back to this if multibyte functions are not
+ * available.
+ *
+ * @param string $haystack The string to search in.
+ * @param string $needle   The string to search for.
+ * @param string $encoding The encoding to use, default mb_internal_encoding().
+ *
+ * @return bool True if the needle was found in the haystack, false otherwise.
+ */
+function relevanssi_mb_stristr($haystack, $needle, $encoding = '') : bool
+{
+}
+/**
  * Trims multibyte strings.
  *
  * Removes the 194+160 non-breakable spaces, removes null bytes and removes
  * whitespace.
  *
- * @param string $string The source string.
+ * @param string $str The source string.
  *
  * @return string Trimmed string.
  */
-function relevanssi_mb_trim(string $string)
+function relevanssi_mb_trim(string $str)
 {
 }
 /**
@@ -4882,11 +4916,11 @@ function relevanssi_off_or_on(array $request, string $option)
 /**
  * Removes quotes (", ”, “) from a string.
  *
- * @param string $string The string to clean.
+ * @param string $str The string to clean.
  *
  * @return string The cleaned string.
  */
-function relevanssi_remove_quotes(string $string)
+function relevanssi_remove_quotes(string $str)
 {
 }
 /**
@@ -4898,11 +4932,11 @@ function relevanssi_remove_quotes(string $string)
  *
  * @uses relevanssi_remove_quotes() This does the actual work.
  *
- * @param array $array An array to process.
+ * @param array $arr An array to process.
  *
  * @return array The same array with quotes removed from the keys.
  */
-function relevanssi_remove_quotes_from_array_keys(array $array)
+function relevanssi_remove_quotes_from_array_keys(array $arr)
 {
 }
 /**
@@ -4937,6 +4971,14 @@ function relevanssi_return_id_type($post_object)
  * @return string A string with value "off".
  */
 function relevanssi_return_off()
+{
+}
+/**
+ * Returns "OR".
+ *
+ * @return string A string with value "OR".
+ */
+function relevanssi_return_or()
 {
 }
 /**
@@ -5058,11 +5100,11 @@ function relevanssi_strlen($s)
  * If multibyte string functions are available, returns mb_strtolower() and
  * falls back to strtolower() if multibyte functions are not available.
  *
- * @param string $string The string to lowercase.
+ * @param string $str The string to lowercase.
  *
- * @return string $string The string in lowercase.
+ * @return string $str The string in lowercase.
  */
-function relevanssi_strtolower($string)
+function relevanssi_strtolower($str)
 {
 }
 /**
@@ -5071,7 +5113,7 @@ function relevanssi_strtolower($string)
  * If multibyte string functions are available, returns mb_substr() and falls
  * back to substr() if multibyte functions are not available.
  *
- * @param string   $string The source string.
+ * @param string   $str The source string.
  * @param int      $start  If start is non-negative, the returned string will
  * start at the start'th position in str, counting from zero. If start is
  * negative, the returned string will start at the start'th character from the
@@ -5079,9 +5121,9 @@ function relevanssi_strtolower($string)
  * @param int|null $length Maximum number of characters to use from string. If
  * omitted or null is passed, extract all characters to the end of the string.
  *
- * @return string $string The string in lowercase.
+ * @return string $str The string in lowercase.
  */
-function relevanssi_substr($string, int $start, $length = \null)
+function relevanssi_substr($str, int $start, $length = \null)
 {
 }
 /**
@@ -5119,10 +5161,10 @@ function relevanssi_the_permalink($post = 0)
  * @param string  $before    What is printed before the tags, default ''.
  * @param string  $separator The separator between items, default ', '.
  * @param string  $after     What is printed after the tags, default ''.
- * @param boolean $echo      If true, echo, otherwise return the result. Default true.
+ * @param boolean $echoed    If true, echo, otherwise return the result. Default true.
  * @param int     $post_id   The post ID. Default current post ID (in the Loop).
  */
-function relevanssi_the_tags(string $before = '', string $separator = ', ', string $after = '', bool $echo = \true, int $post_id = 0)
+function relevanssi_the_tags(string $before = '', string $separator = ', ', string $after = '', bool $echoed = \true, int $post_id = 0)
 {
 }
 /**
@@ -5140,13 +5182,13 @@ function relevanssi_the_tags(string $before = '', string $separator = ', ', stri
  * @param boolean|string $before Markup to prepend to the title. Can also be a
  * boolean for whether to echo or return the title.
  * @param string         $after  Markup to append to the title.
- * @param boolean        $echo   Whether to echo or return the title. Default
+ * @param boolean        $echoed   Whether to echo or return the title. Default
  * true for echo.
  *
- * @return void|string Void if $echo argument is true, current post title with
- * highlights if $echo is false.
+ * @return void|string Void if $echoed argument is true, current post title with
+ * highlights if $echoed is false.
  */
-function relevanssi_the_title($before = \true, string $after = '', bool $echo = \true)
+function relevanssi_the_title($before = \true, string $after = '', bool $echoed = \true)
 {
 }
 /**
@@ -5167,11 +5209,11 @@ function relevanssi_turn_off_options(array &$request, array $options)
  * @param array   $request  An array of option values.
  * @param string  $option   The key to check.
  * @param boolean $autoload Should the option autoload, default true.
- * @param float   $default  The default value if floatval() fails, default 0.
+ * @param float   $def_val  The default value if floatval() fails, default 0.
  * @param boolean $positive If true, replace negative values and zeroes with
- * $default.
+ * $def_val.
  */
-function relevanssi_update_floatval(array $request, string $option, bool $autoload = \true, float $default = 0, bool $positive = \false)
+function relevanssi_update_floatval(array $request, string $option, bool $autoload = \true, float $def_val = 0, bool $positive = \false)
 {
 }
 /**
@@ -5180,9 +5222,9 @@ function relevanssi_update_floatval(array $request, string $option, bool $autolo
  * @param array   $request  An array of option values.
  * @param string  $option   The key to check.
  * @param boolean $autoload Should the option autoload, default true.
- * @param int     $default  The default value if intval() fails, default 0.
+ * @param int     $def_val  The default value if intval() fails, default 0.
  */
-function relevanssi_update_intval(array $request, string $option, bool $autoload = \true, int $default = 0)
+function relevanssi_update_intval(array $request, string $option, bool $autoload = \true, int $def_val = 0)
 {
 }
 /**
@@ -5191,10 +5233,10 @@ function relevanssi_update_intval(array $request, string $option, bool $autoload
  * @param array   $request  An array of option values.
  * @param string  $option   The key to check.
  * @param array   $values   The legal values.
- * @param string  $default  The default value.
+ * @param string  $def_val  The default value.
  * @param boolean $autoload Should the option autoload, default true.
  */
-function relevanssi_update_legal_value(array $request, string $option, array $values, string $default, bool $autoload = \true)
+function relevanssi_update_legal_value(array $request, string $option, array $values, string $def_val, bool $autoload = \true)
 {
 }
 /**
