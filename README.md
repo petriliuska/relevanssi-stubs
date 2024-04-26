@@ -1,7 +1,7 @@
 # Relevanssi stubs
 
-Stub definitions for free version of [Relevanssi](https://www.relevanssi.com/).
-Stubs are generated using [php-stubs/generator](https://github.com/php-stubs/generator).
+Stub definitions for the free version of [Relevanssi](https://www.relevanssi.com/).
+These stubs are generated using [php-stubs/generator](https://github.com/php-stubs/generator).
 
 ## Installation
 
