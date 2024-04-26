@@ -1329,24 +1329,6 @@ function relevanssi_simplemembership_compatibility($post_ok, $post_id)
 {
 }
 /**
- * /lib/compatibility/tablepress.php
- *
- * TablePress compatibility features.
- *
- * @package Relevanssi
- * @author  Mikko Saari
- * @license https://wordpress.org/about/gpl/ GNU General Public License
- * @see     https://www.relevanssi.com/
- */
-/**
- * Enables TablePress shortcodes for Relevanssi indexing.
- *
- * @return null|object The TablePress controller.
- */
-function relevanssi_enable_tablepress_shortcodes()
-{
-}
-/**
  * Replaces the [table_filter] shortcodes with [table].
  *
  * The shortcode filter extension adds a [table_filter] shortcode which is not
@@ -1450,6 +1432,17 @@ function relevanssi_woocommerce_filters($query)
  * @return array The modified query.
  */
 function relevanssi_filtered_term_product_counts_query($query)
+{
+}
+/**
+ * Checks the parent product status for product variations.
+ *
+ * @param bool $ok      Whether the post is OK to return in search.
+ * @param int  $post_id The post ID.
+ *
+ * @return bool
+ */
+function relevanssi_variation_post_ok($ok, $post_id) : bool
 {
 }
 /**
@@ -5268,5 +5261,15 @@ function relevanssi_update_sanitized(array $request, string $option, bool $autol
  * @return bool True if $_SERVER['HTTP_USER_AGENT'] is a bot.
  */
 function relevanssi_user_agent_is_bot() : bool
+{
+}
+/**
+ * Validates that the parameter is a valid taxonomy type.
+ *
+ * @parameter string $taxonomy The taxonomy to validate.
+ *
+ * @return string The validated taxonomy, empty string if invalid.
+ */
+function relevanssi_validate_taxonomy($taxonomy)
 {
 }
