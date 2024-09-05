@@ -2739,6 +2739,19 @@ function relevanssi_create_line_chart(array $labels, array $datasets)
 {
 }
 /**
+ * Checks if the active tab exists in the tab list.
+ *
+ * If it doesn't, sets the active tab to the first tab in the list.
+ *
+ * @param string $active_tab The active tab.
+ * @param array  $tabs       The tab list.
+ *
+ * @return string The active tab.
+ */
+function relevanssi_check_active_tab($active_tab, $tabs)
+{
+}
+/**
  * /lib/log.php
  *
  * @package Relevanssi
