@@ -412,7 +412,7 @@ function relevanssi_add_highlight($permalink, $link_post = \null)
  * $post ID. Default null.
  * @return boolean True if the post ID or global $post matches the front page.
  */
-function relevanssi_is_front_page_id(int $post_id = \null) : bool
+function relevanssi_is_front_page_id(?int $post_id = \null) : bool
 {
 }
 /**
@@ -620,7 +620,7 @@ function relevanssi_replace_synonyms_in_terms(array $terms) : array
  * @return array An array of words with stemmed words replaced with their
  * originals.
  */
-function relevanssi_replace_stems_in_terms(array $terms, array $all_terms = \null) : array
+function relevanssi_replace_stems_in_terms(array $terms, ?array $all_terms = \null) : array
 {
 }
 /**
@@ -2767,12 +2767,13 @@ function relevanssi_check_active_tab($active_tab, $tabs)
  * @global object $wpdb                 The WordPress database interface.
  * @global array  $relevanssi_variables The global Relevanssi variables, used for database table names.
  *
- * @param string $query The search query.
- * @param int    $hits  The number of hits found.
+ * @param string $query  The search query.
+ * @param int    $hits   The number of hits found.
+ * @param string $source The search source identifier, default ''.
  *
  * @return boolean True if logged, false if not logged.
  */
-function relevanssi_update_log($query, $hits)
+function relevanssi_update_log($query, $hits, $source = '')
 {
 }
 /**
@@ -4376,12 +4377,13 @@ function relevanssi_query_log()
  * @global object $wpdb                 The WP database interface.
  * @global array  $relevanssi_variables The global Relevanssi variables array.
  *
- * @param string $from The start date.
- * @param string $to   The end date.
+ * @param string $from   The start date.
+ * @param string $to     The end date.
+ * @param string $source The search source.
  *
  * @return int The number of searches.
  */
-function relevanssi_total_queries(string $from, string $to)
+function relevanssi_total_queries(string $from, string $to, string $source)
 {
 }
 /**
@@ -4390,10 +4392,11 @@ function relevanssi_total_queries(string $from, string $to)
  * @global object $wpdb                 The WP database interface.
  * @global array  $relevanssi_variables The global Relevanssi variables array.
  *
- * @param string $from The start date.
- * @param string $to   The end date.
+ * @param string $from   The start date.
+ * @param string $to     The end date.
+ * @param string $source The search source.
  */
-function relevanssi_nothing_found_queries(string $from, string $to)
+function relevanssi_nothing_found_queries(string $from, string $to, string $source)
 {
 }
 /**
@@ -4406,8 +4409,9 @@ function relevanssi_nothing_found_queries(string $from, string $to)
  * @param string $to      The ending date.
  * @param string $version If 'good', show the searches that found something; if
  * 'bad', show the searches that didn't find anything. Default 'good'.
+ * @param string $source  The source identifier, default ''.
  */
-function relevanssi_date_queries(string $from, string $to, string $version = 'good')
+function relevanssi_date_queries(string $from, string $to, string $version = 'good', string $source = '')
 {
 }
 /**
