@@ -299,7 +299,7 @@ function relevanssi_prevent_default_request($request, $query)
  * @return int[] An array of tokens as the keys and their frequency as the
  * value.
  */
-function relevanssi_tokenize($str, $remove_stops = \true, int $min_word_length = -1, $context = 'indexing') : array
+function relevanssi_tokenize($str, $remove_stops = \true, int $min_word_length = -1, $context = 'indexing'): array
 {
 }
 /**
@@ -412,7 +412,7 @@ function relevanssi_add_highlight($permalink, $link_post = \null)
  * $post ID. Default null.
  * @return boolean True if the post ID or global $post matches the front page.
  */
-function relevanssi_is_front_page_id(?int $post_id = \null) : bool
+function relevanssi_is_front_page_id($post_id = \null): bool
 {
 }
 /**
@@ -530,21 +530,6 @@ function relevanssi_block_on_admin_searches($allow, $query)
 {
 }
 /**
- * Checks if user has relevanssi_indexing_restriction filter functions in use.
- *
- * Temporary check for the changes in the relevanssi_indexing_restriction filter
- * in 2.8/4.7. Remove eventually. The function runs all non-Relevanssi filters
- * on relevanssi_indexing_restriction and reports all that return a string.
- *
- * @see relevanssi_init()
- *
- * @return string The notice, if there's something to complain about, empty
- * string otherwise.
- */
-function relevanssi_check_indexing_restriction()
-{
-}
-/**
  * Fetches the data and generates the HTML for the "How Relevanssi sees this
  * post".
  *
@@ -608,7 +593,7 @@ function relevanssi_update_synonyms_setting()
  *
  * @return array An array of words with backwards synonym replacement.
  */
-function relevanssi_replace_synonyms_in_terms(array $terms) : array
+function relevanssi_replace_synonyms_in_terms(array $terms): array
 {
 }
 /**
@@ -620,7 +605,7 @@ function relevanssi_replace_synonyms_in_terms(array $terms) : array
  * @return array An array of words with stemmed words replaced with their
  * originals.
  */
-function relevanssi_replace_stems_in_terms(array $terms, ?array $all_terms = \null) : array
+function relevanssi_replace_stems_in_terms(array $terms, array $all_terms = array()): array
 {
 }
 /**
@@ -632,7 +617,7 @@ function relevanssi_replace_stems_in_terms(array $terms, ?array $all_terms = \nu
  *
  * @return array An array of name => user-agent pairs.
  */
-function relevanssi_bot_block_list() : array
+function relevanssi_bot_block_list(): array
 {
 }
 /**
@@ -644,9 +629,9 @@ function relevanssi_bot_block_list() : array
  *
  * @param array $custom_fields A list of custom field names.
  *
- * @return @array The custom fields with the excluded fields removed.
+ * @return array The custom fields with the excluded fields removed.
  */
-function relevanssi_remove_metadata_fields(array $custom_fields) : array
+function relevanssi_remove_metadata_fields(array $custom_fields): array
 {
 }
 /**
@@ -846,7 +831,7 @@ function relevanssi_bricks_fix_none_setting($value)
  *
  * @return bool Returns false, if this is an Elementor library search.
  */
-function relevanssi_block_elementor_library(bool $ok, \WP_Query $query) : bool
+function relevanssi_block_elementor_library(bool $ok, \WP_Query $query): bool
 {
 }
 /**
@@ -962,7 +947,7 @@ function relevanssi_members_compatibility($post_ok, $post_id)
  * the post content and then uses relevanssi_index_ninja_table() to convert the
  * tables into strings.
  *
- * @uses $wpdb WordPress database abstraction.
+ * @global $wpdb WordPress database abstraction.
  * @see relevanssi_index_ninja_table()
  *
  * @param string $content The post content.
@@ -979,7 +964,7 @@ function relevanssi_index_ninja_tables($content)
  * title and description are also included, if they are set visible on the
  * frontend.
  *
- * @uses $wpdb WordPress database abstraction.
+ * @global $wpdb WordPress database abstraction.
  *
  * @param int $table_id The table ID.
  *
@@ -1019,7 +1004,7 @@ function relevanssi_oxygen_compatibility($value, $field, $post_id)
  *
  * @return string The content from the child and the grandchildren.
  */
-function relevanssi_process_oxygen_child($child) : string
+function relevanssi_process_oxygen_child($child): string
 {
 }
 /**
@@ -1409,7 +1394,7 @@ function relevanssi_sku_boost($match_object)
  * @param array $post_types The list of blocked post types.
  * @return array
  */
-function relevanssi_woocommerce_admin_search_blocked_post_types(array $post_types) : array
+function relevanssi_woocommerce_admin_search_blocked_post_types(array $post_types): array
 {
 }
 /**
@@ -1442,7 +1427,7 @@ function relevanssi_filtered_term_product_counts_query($query)
  *
  * @return bool
  */
-function relevanssi_variation_post_ok($ok, $post_id) : bool
+function relevanssi_variation_post_ok($ok, $post_id): bool
 {
 }
 /**
@@ -1481,7 +1466,7 @@ function relevanssi_wpfd_index($wpfd_id)
  *
  * @return bool
  */
-function relevanssi_wpmembers_compatibility(bool $post_ok, $post_id) : bool
+function relevanssi_wpmembers_compatibility(bool $post_ok, $post_id): bool
 {
 }
 /**
@@ -1615,6 +1600,20 @@ function relevanssi_admin_help()
 {
 }
 /**
+ * /lib/deactivate.php
+ *
+ * @package Relevanssi
+ * @author  Mikko Saari
+ * @license https://wordpress.org/about/gpl/ GNU General Public License
+ * @see     https://www.relevanssi.com/
+ */
+/**
+ * This function clears the scheduled tasks on plugin deactivation.
+ */
+function relevanssi_deactivate()
+{
+}
+/**
  * Checks if Relevanssi debug mode is enabled.
  *
  * Debug mode is enabled by setting RELEVANSSI_DEBUG to true or with the
@@ -1623,7 +1622,7 @@ function relevanssi_admin_help()
  *
  * @return boolean True if debug mode is enabled, false if not.
  */
-function relevanssi_is_debug() : bool
+function relevanssi_is_debug(): bool
 {
 }
 /**
@@ -1684,7 +1683,7 @@ function relevanssi_debug_search_settings()
  *
  * @return bool True if debug mode is on.
  */
-function relevanssi_log_debug() : bool
+function relevanssi_log_debug(): bool
 {
 }
 /**
@@ -2030,7 +2029,7 @@ function relevanssi_add_accent_variations($word)
  * everything in one string in index 0 (if relevanssi_excerpt_specific_fields is
  * off).
  */
-function relevanssi_get_custom_field_content($post_id) : array
+function relevanssi_get_custom_field_content($post_id): array
 {
 }
 /**
@@ -2472,10 +2471,11 @@ function relevanssi_index_custom_fields(&$insert_data, $post_id, $custom_fields,
  * @param string  $excerpt         The post excerpt to index.
  * @param int     $min_word_length The minimum word length.
  * @param boolean $debug           If true, print out debug notices.
+ * @param object  $post_object     The post object.
  *
  * @return int The number of tokens added to the data.
  */
-function relevanssi_index_excerpt(&$insert_data, $excerpt, $min_word_length, $debug)
+function relevanssi_index_excerpt(&$insert_data, $excerpt, $min_word_length, $debug, $post_object)
 {
 }
 /**
@@ -2869,7 +2869,7 @@ function relevanssi_output_exported_log(string $filename, array $data, string $m
  *
  * @return boolean True, if the user is not a bot or not on the omit list.
  */
-function relevanssi_is_ok_to_log($user = \null) : bool
+function relevanssi_is_ok_to_log($user = \null): bool
 {
 }
 /**
@@ -2929,7 +2929,7 @@ function relevanssi_sanitize_weights($weight)
  *
  * @return boolean True, if update_option() succeeds, false otherwise.
  */
-function relevanssi_process_punctuation_options(array $request) : bool
+function relevanssi_process_punctuation_options(array $request): bool
 {
 }
 /**
@@ -2939,7 +2939,7 @@ function relevanssi_process_punctuation_options(array $request) : bool
  *
  * @return boolean True, if update_option() succeeds, false otherwise.
  */
-function relevanssi_process_synonym_options(array $request) : bool
+function relevanssi_process_synonym_options(array $request): bool
 {
 }
 /**
@@ -2949,7 +2949,7 @@ function relevanssi_process_synonym_options(array $request) : bool
  *
  * @return boolean True, if update_option() succeeds, false otherwise.
  */
-function relevanssi_process_index_fields_option(array $request) : bool
+function relevanssi_process_index_fields_option(array $request): bool
 {
 }
 /**
@@ -2959,7 +2959,7 @@ function relevanssi_process_index_fields_option(array $request) : bool
  *
  * @return boolean True, if update_option() succeeds, false otherwise.
  */
-function relevanssi_process_trim_logs_option(array $request) : bool
+function relevanssi_process_trim_logs_option(array $request): bool
 {
 }
 /**
@@ -2969,7 +2969,7 @@ function relevanssi_process_trim_logs_option(array $request) : bool
  *
  * @return boolean True, if update_option() succeeds, false otherwise.
  */
-function relevanssi_process_cat_option(array $request) : bool
+function relevanssi_process_cat_option(array $request): bool
 {
 }
 /**
@@ -2979,7 +2979,7 @@ function relevanssi_process_cat_option(array $request) : bool
  *
  * @return boolean True, if update_option() succeeds, false otherwise.
  */
-function relevanssi_process_excat_option(array $request) : bool
+function relevanssi_process_excat_option(array $request): bool
 {
 }
 /**
@@ -3038,7 +3038,7 @@ function relevanssi_recognize_phrases($search_query, $operator = 'AND')
  *
  * @return array An array of queries sorted by phrase.
  */
-function relevanssi_generate_phrase_queries(array $phrases, array $taxonomies, $custom_fields, string $excerpts) : array
+function relevanssi_generate_phrase_queries(array $phrases, array $taxonomies, $custom_fields, string $excerpts): array
 {
 }
 /**
@@ -3262,8 +3262,7 @@ function relevanssi_process_by_date($by_date)
  *
  * @global object $wpdb The WP database interface.
  *
- * @return array Array containing the 'post_type' and 'non_post_post_type' (which
- * defaults to null).
+ * @return string The MySQL query.
  */
 function relevanssi_process_post_type($post_type, $admin_search, $include_attachments)
 {
@@ -3325,7 +3324,7 @@ function relevanssi_add_phrase_restrictions($query_restrictions, $phrase_queries
  *
  * @return string The query restrictions for the MySQL query.
  */
-function relevanssi_process_tax_query(string $tax_query_relation, array $tax_query) : string
+function relevanssi_process_tax_query(string $tax_query_relation, array $tax_query): string
 {
 }
 /**
@@ -3347,7 +3346,7 @@ function relevanssi_process_tax_query(string $tax_query_relation, array $tax_que
  * $query_restrictions, then $term_tax_ids, $not_term_tax_ids, $and_term_tax_ids
  * and $exist_queries.
  */
-function relevanssi_process_tax_query_row(array $row, bool $is_sub_row, string $global_relation, string $query_restrictions, string $tax_query_relation, array $term_tax_ids, array $not_term_tax_ids, array $and_term_tax_ids, array $exist_queries) : array
+function relevanssi_process_tax_query_row(array $row, bool $is_sub_row, string $global_relation, string $query_restrictions, string $tax_query_relation, array $term_tax_ids, array $not_term_tax_ids, array $and_term_tax_ids, array $exist_queries): array
 {
 }
 /**
@@ -3365,7 +3364,7 @@ function relevanssi_process_tax_query_row(array $row, bool $is_sub_row, string $
  *
  * @return string The MySQL query restrictions.
  */
-function relevanssi_process_term_tax_ids(array $term_tax_ids, array $not_term_tax_ids, array $and_term_tax_ids, array $exist_queries) : string
+function relevanssi_process_term_tax_ids(array $term_tax_ids, array $not_term_tax_ids, array $and_term_tax_ids, array $exist_queries): string
 {
 }
 /**
@@ -3382,7 +3381,7 @@ function relevanssi_process_term_tax_ids(array $term_tax_ids, array $not_term_ta
  * @return array An array containing numeric terms and the list of sanitized
  * term names.
  */
-function relevanssi_get_term_in($terms_parameter, string $taxonomy, string $field_name) : array
+function relevanssi_get_term_in($terms_parameter, string $taxonomy, string $field_name): array
 {
 }
 /**
@@ -3395,7 +3394,7 @@ function relevanssi_get_term_in($terms_parameter, string $taxonomy, string $fiel
  *
  * @return array An array of term taxonomy IDs.
  */
-function relevanssi_term_tax_id_from_row(array $row) : array
+function relevanssi_term_tax_id_from_row(array $row): array
 {
 }
 /**
@@ -3579,7 +3578,7 @@ function relevanssi_meta_query_from_query_vars($query)
  *
  * @return boolean If true, allow the search.
  */
-function relevanssi_control_media_queries(bool $search_ok, \WP_Query $query) : bool
+function relevanssi_control_media_queries(bool $search_ok, \WP_Query $query): bool
 {
 }
 /**
@@ -3599,11 +3598,10 @@ function relevanssi_calculate_tf($match_object, $post_type_weights)
  * @param stdClass $match_object      The match object.
  * @param float    $idf               The inverse document frequency.
  * @param array    $post_type_weights The post type weights.
- * @param string   $query             The search query.
  *
  * @return float The weight.
  */
-function relevanssi_calculate_weight($match_object, $idf, $post_type_weights, $query)
+function relevanssi_calculate_weight($match_object, $idf, $post_type_weights)
 {
 }
 /**
@@ -3614,8 +3612,9 @@ function relevanssi_calculate_weight($match_object, $idf, $post_type_weights, $q
  * @param array    $match_arrays The matches array (passed as reference).
  * @param stdClass $match_object The match object.
  * @param string   $term         The search term.
+ * @param int      $blog_id      The blog ID, if this is a multisite search.
  */
-function relevanssi_update_term_hits(&$term_hits, &$match_arrays, $match_object, $term)
+function relevanssi_update_term_hits(&$term_hits, &$match_arrays, $match_object, $term, $blog_id = 0)
 {
 }
 /**
@@ -3638,7 +3637,7 @@ function relevanssi_initialize_match_arrays()
  *
  * @return array An array of DF values for each term.
  */
-function relevanssi_generate_df_counts(array $terms, array $args) : array
+function relevanssi_generate_df_counts(array $terms, array $args): array
 {
 }
 /**
@@ -3675,7 +3674,7 @@ function relevanssi_adjust_match_doc($match_object)
  *
  * @return string The MySQL search query.
  */
-function relevanssi_generate_search_query(string $term, bool $search_again, bool $no_terms, string $query_join = '', string $query_restrictions = '') : string
+function relevanssi_generate_search_query(string $term, bool $search_again, bool $no_terms, string $query_join = '', string $query_restrictions = ''): string
 {
 }
 /**
@@ -3721,7 +3720,7 @@ function relevanssi_add_include_matches(array &$matches, array $included_posts, 
  *
  * @return array An array with the low boundary first, the high boundary second.
  */
-function relevanssi_get_boundaries($query) : array
+function relevanssi_get_boundaries($query): array
 {
 }
 /**
@@ -3770,6 +3769,21 @@ function relevanssi_post_date_throttle_join($query_join)
  * @return string The modified query restrictions.
  */
 function relevanssi_post_date_throttle_where($query_restrictions)
+{
+}
+/**
+ * Does the exact match boost feature.
+ *
+ * This function hooks to the relevanssi_results hook and adds the exact
+ * match bonus weight to posts if they contain the exact search query in the
+ * title or the post content.
+ *
+ * @param array  $doc_weight The posts as [post ID => weight] pairs.
+ * @param string $query      The search query, trimmed and in lowercase.
+ *
+ * @return array The post weights, adjusted.
+ */
+function relevanssi_add_exact_match_boost($doc_weight, $query)
 {
 }
 /**
@@ -3836,6 +3850,29 @@ function relevanssi_noindex_shortcode_indexing()
  * @return string A search form.
  */
 function relevanssi_search_form($atts)
+{
+}
+/**
+ * Returns a "did you mean?" block.
+ *
+ * This shortcode allows the Relevanssi "Did you mean?" functionality to be
+ * placed anywhere in a post or page, which is essential for Block Themes
+ * where the search template cannot be easily edited.
+ *
+ * Usage: [rlv_didyoumean n="5" pre="<strong>Did you mean: </strong>"]
+ *
+ * @param array $atts {
+ *     Optional. Associative array of shortcode attributes.
+ *
+ *     @type string $query The search term to check. Defaults to the current search query.
+ *     @type string $pre   Text or HTML to display before the suggestion.
+ *     @type string $post  Text or HTML to display after the suggestion.
+ *     @type int    $n     The maximum number of results to trigger the suggestion.
+ * }
+ *
+ * @return string The "Did you mean?" HTML or an empty string if no suggestion.
+ */
+function relevanssi_didyoumean_shortcode($atts)
 {
 }
 /**
@@ -4458,7 +4495,7 @@ function relevanssi_add_quotes($str)
  *
  * @since 2.1.4
  *
- * @see relevanssi_mb_trim.
+ * @see relevanssi_mb_trim
  *
  * @param string $str String to trim.
  */
@@ -4539,7 +4576,7 @@ function relevanssi_debug_echo(string $notice)
  *
  * @return string
  */
-function relevanssi_do_shortcode(string $content) : string
+function relevanssi_do_shortcode(string $content): string
 {
 }
 /**
@@ -4568,7 +4605,7 @@ function relevanssi_flatten_array(array $arr)
  * @return array The from date in 'from' and the to date in 'to' in "Y-m-d"
  * format.
  */
-function relevanssi_from_and_to(array $request, string $from) : array
+function relevanssi_from_and_to(array $request, string $from): array
 {
 }
 /**
@@ -4604,7 +4641,7 @@ function relevanssi_get_an_object($source)
  * @param WP_Post|int $post The post object or post ID.
  * @return string The suffix if it is found, an empty string otherwise.
  */
-function relevanssi_get_attachment_suffix($post) : string
+function relevanssi_get_attachment_suffix($post): string
 {
 }
 /**
@@ -4673,7 +4710,7 @@ function relevanssi_get_post($post_id, int $blog_id = -1)
  *
  * @return array An array of post_id, meta_value pairs.
  */
-function relevanssi_get_post_meta_for_all_posts(array $post_ids, string $field) : array
+function relevanssi_get_post_meta_for_all_posts(array $post_ids, string $field): array
 {
 }
 /**
@@ -4705,22 +4742,6 @@ function relevanssi_get_post_object($post_id)
  * @return int Term taxonomy ID.
  */
 function relevanssi_get_term_tax_id(int $term_id, string $taxonomy)
-{
-}
-/**
- * Fetches the taxonomy based on term ID.
- *
- * Fetches the taxonomy from wp_term_taxonomy based on term_id.
- *
- * @global object $wpdb The WordPress database interface.
- *
- * @param int $term_id The term ID.
- *
- * @deprecated Will be removed in future versions.
- *
- * @return string $taxonomy The term taxonomy.
- */
-function relevanssi_get_term_taxonomy(int $term_id)
 {
 }
 /**
@@ -4824,7 +4845,7 @@ function relevanssi_is_live_search()
  *
  * @return boolean True if the string is a multiple-word phrase, false otherwise.
  */
-function relevanssi_is_multiple_words(string $str) : bool
+function relevanssi_is_multiple_words(string $str): bool
 {
 }
 /**
@@ -4878,7 +4899,7 @@ function relevanssi_legal_value(array $request, string $option, array $values, s
  * @return int $val Returns < 0 if str1 is less than str2; > 0 if str1 is
  * greater than str2, and 0 if they are equal.
  */
-function relevanssi_mb_strcasecmp($str1, $str2, $encoding = '') : int
+function relevanssi_mb_strcasecmp($str1, $str2, $encoding = ''): int
 {
 }
 /**
@@ -4896,7 +4917,7 @@ function relevanssi_mb_strcasecmp($str1, $str2, $encoding = '') : int
  *
  * @return bool True if the needle was found in the haystack, false otherwise.
  */
-function relevanssi_mb_stristr($haystack, $needle, $encoding = '') : bool
+function relevanssi_mb_stristr($haystack, $needle, $encoding = ''): bool
 {
 }
 /**
@@ -4921,6 +4942,23 @@ function relevanssi_mb_trim(string $str)
  * @return string 'on' or 'off'.
  */
 function relevanssi_off_or_on(array $request, string $option)
+{
+}
+/**
+ * Post password checker.
+ *
+ * Determines whether the post requires password and whether a correct password
+ * has been provided.
+ *
+ * This is the same function as core post_password_required(), except this uses
+ * relevanssi_get_post() instead of get_post().
+ *
+ * @param int|WP_Post|null $post The post to check.
+ *
+ * @return bool false if a password is not required or the correct password
+ * cookie is present, true otherwise.
+ */
+function relevanssi_post_password_required($post): bool
 {
 }
 /**
@@ -5041,14 +5079,14 @@ function relevanssi_select(string $option, string $value)
  *
  * @return string The content with tags stripped.
  */
-function relevanssi_strip_all_tags($content) : string
+function relevanssi_strip_all_tags($content): string
 {
 }
 /**
  * Strips invisible elements from text.
  *
  * Strips <style>, <script>, <object>, <embed>, <applet>, <noscript>, <noembed>,
- * <iframe> and <del> tags and their contents and comments from the text.
+ * <iframe>, <del> and <svg> tags and their contents and comments from the text.
  *
  * @param string $text The source text.
  *
@@ -5134,6 +5172,23 @@ function relevanssi_strtolower($str)
  * @return string $str The string in lowercase.
  */
 function relevanssi_substr($str, int $start, $length = \null)
+{
+}
+/**
+ * Multibyte-safe version of substr_replace.
+ *
+ * Replaces a part of a string with another string based on character offsets
+ * rather than byte offsets. This ensures that accented characters (UTF-8)
+ * do not cause the string to be cut in the wrong place.
+ *
+ * @param string   $str         The source string.
+ * @param string   $replacement The string to insert.
+ * @param int      $start       The character offset where the replacement begins.
+ * @param int|null $length      The number of characters to remove from the original string.
+ *
+ * @return string The modified string with the replacement inserted.
+ */
+function relevanssi_substr_replace($str, $replacement, int $start, $length)
 {
 }
 /**
@@ -5277,13 +5332,13 @@ function relevanssi_update_sanitized(array $request, string $option, bool $autol
  *
  * @return bool True if $_SERVER['HTTP_USER_AGENT'] is a bot.
  */
-function relevanssi_user_agent_is_bot() : bool
+function relevanssi_user_agent_is_bot(): bool
 {
 }
 /**
  * Validates that the parameter is a valid taxonomy type.
  *
- * @parameter string $taxonomy The taxonomy to validate.
+ * @param string $taxonomy The taxonomy to validate.
  *
  * @return string The validated taxonomy, empty string if invalid.
  */
